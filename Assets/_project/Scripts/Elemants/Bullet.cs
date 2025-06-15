@@ -33,11 +33,13 @@ public class Bullet : MonoBehaviour
             {
                 enemy.GetHit(1);
             }
+            GameDirector.instance.audioManager.PlayHitSFX();
             Destroy(gameObject);
         }
         if (other.CompareTag("Ground"))
         {
             GameDirector.instance.fXManager.PlayBulletImpactFX(_transform.position, _transform.forward, new Color(1, .6f, 0, 1));
+            GameDirector.instance.audioManager.PlayWallHitSFX();
             Destroy(gameObject);
         }
     }

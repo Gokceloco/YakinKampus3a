@@ -58,13 +58,24 @@ public class Enemy : MonoBehaviour
         }
         var distanceVector = _player.transform.position - _transform.position;
         var distance = distanceVector.magnitude;
-        if (distance < enemySightRange && enemyState != EnemyState.Moving)
+        if (distance < attackRange)
+        {
+            if (enemyState != EnemyState.Attacking)
+            {
+                enemyState = EnemyState.Attacking;
+                _animator.SetTrigger("Attack");
+                _agent.isStopped = true;
+            }   
+        }
+        else if (distance < enemySightRange && enemyState != EnemyState.Moving)
         {
             if (Physics.Raycast(_transform.position + Vector3.up, distanceVector.normalized, out var hit, distance)
                 && hit.transform.CompareTag("Player"))
             {
                 enemyState = EnemyState.Moving;
                 _animator.SetTrigger("Walk");
+                GameDirector.instance.audioManager.PlayZombieAttackSFX();
+                _agent.isStopped = false;
             }
         }
 

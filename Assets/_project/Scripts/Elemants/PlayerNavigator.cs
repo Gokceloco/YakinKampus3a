@@ -69,7 +69,8 @@ public class PlayerNavigator : MonoBehaviour
 
         if (direction.magnitude > 0)
         {
-            _playerAnimator.PlayRunAnimation();
+            var angle = Vector3.SignedAngle(transform.forward, direction.normalized, Vector3.up);
+            _playerAnimator.PlayRunAnimation(angle);
         }
         else
         {

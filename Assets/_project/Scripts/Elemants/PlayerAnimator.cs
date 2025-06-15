@@ -19,8 +19,9 @@ public class PlayerAnimator : MonoBehaviour
             _playerAnimationState = PlayerAnimationState.Idle;
         }
     }
-    public void PlayRunAnimation()
+    public void PlayRunAnimation(float runDirection)
     {
+        _animator.SetFloat("RunDirection", runDirection);
         if (_playerAnimationState != PlayerAnimationState.Run)
         {
             _animator.ResetTrigger("Idle");

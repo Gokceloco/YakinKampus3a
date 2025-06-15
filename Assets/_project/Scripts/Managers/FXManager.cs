@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FXManager : MonoBehaviour
 {
+    public AudioManager audioManager;
     public ParticleSystem bulletImpactPSPrefab;
     public ParticleSystem coinCollectedPSPrefab;
     public ParticleSystem serumCollectedPSPrefab;
@@ -21,11 +22,13 @@ public class FXManager : MonoBehaviour
         var newPS = Instantiate(coinCollectedPSPrefab);
         newPS.transform.position = pos;
         newPS.Play();
+        audioManager.PlayCoinCollectedSFX();
     }
     public void PlaySerumCollectedFX(Vector3 pos)
     {
         var newPS = Instantiate(serumCollectedPSPrefab);
         newPS.transform.position = pos;
         newPS.Play();
+        audioManager.PlaySerumCollectedSFX();
     }
 }

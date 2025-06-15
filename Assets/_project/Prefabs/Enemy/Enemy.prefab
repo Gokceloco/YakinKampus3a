@@ -81,7 +81,7 @@ MonoBehaviour:
   startHealth: 10
   enemyState: 0
   enemySightRange: 25
-  attackRange: 3
+  attackRange: 2
   aliveCollider: {fileID: 5649226318821276951}
   deadCollider: {fileID: 5442349959843943692}
   flashDuration: 0.1
