@@ -16,6 +16,15 @@ public class LevelManager : MonoBehaviour
         CreateNewLevel();
     }
 
+    internal void StopEnemies()
+    {
+        var enemies = currentLevel.GetComponentsInChildren<Enemy>();
+        foreach (var e in enemies)
+        {
+            e.PlayerIsDead();
+        }
+    }
+
     private void CreateNewLevel()
     {
         levelNo = Mathf.Clamp(levelNo, 1, levels.Count);

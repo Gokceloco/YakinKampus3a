@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed;
+    public int damage;
 
     private Rigidbody _rb;
     private NavMeshAgent _agent;
@@ -37,6 +37,8 @@ public class Enemy : MonoBehaviour
 
     private Coroutine _flashCoroutine;
 
+    private bool _isPlayerDead;
+
     private void Start()
     {
         _transform = transform;
@@ -52,7 +54,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (enemyState == EnemyState.Dead)
+        if (enemyState == EnemyState.Dead || _isPlayerDead)
         {
             return;
         }
@@ -67,7 +69,7 @@ public class Enemy : MonoBehaviour
                 _agent.isStopped = true;
             }   
         }
-        else if (distance < enemySightRange && enemyState != EnemyState.Moving)
+        else if (distance < enemySightRange && enemyState != EnemyState.Moving && enemyState != EnemyState.Attacking)
         {
             if (Physics.Raycast(_transform.position + Vector3.up, distanceVector.normalized, out var hit, distance)
                 && hit.transform.CompareTag("Player"))
@@ -153,6 +155,40 @@ public class Enemy : MonoBehaviour
         deadCollider.enabled = false;
         _agent.enabled = false;
         Destroy(gameObject, 1f);
+    }
+
+    public void AttackCompleted()
+    {
+        if (PlayerInRange())
+        {
+            _player.GetHit(damage);
+        }
+    }
+
+    private bool PlayerInRange()
+    {
+        var distanceVector = _player.transform.position - _transform.position;
+        var distance = distanceVector.magnitude;
+        var angle = Vector3.Angle(transform.forward, distanceVector);
+        if (distance < attackRange && angle < 45)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void ContinueWalkingAfterAttack()
+    {
+        enemyState = EnemyState.Idle;
+    }
+
+    public void PlayerIsDead()
+    {
+        _isPlayerDead = true;
+        _agent.isStopped = true;
+        enemyState = EnemyState.Idle;
+        _animator.SetTrigger("Idle");
+        _healthBar.HideHealthBar();
     }
 }
 

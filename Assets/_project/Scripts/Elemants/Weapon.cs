@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public CameraHolder cameraHolder;
+
     public Bullet bulletPrefab;
     public Transform shootPoint;
 
@@ -33,5 +35,6 @@ public class Weapon : MonoBehaviour
         muzzleLight.DOKill();
         muzzleLight.intensity = 0;
         muzzleLight.DOIntensity(100, .05f).SetLoops(2, LoopType.Yoyo);
+        cameraHolder.ShakeCamera(.2f,.2f);
     }
 }

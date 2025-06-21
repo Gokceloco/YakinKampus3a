@@ -10,6 +10,8 @@ public class GameDirector : MonoBehaviour
     public AudioManager audioManager;
     public Player player;
 
+    public PlayerHealthUI playerHealthUI;
+
     private void Awake()
     {
         instance = this;
@@ -55,5 +57,10 @@ public class GameDirector : MonoBehaviour
     public void LevelCompleted()
     {
         Invoke(nameof(LoadNextLevel), 1f);
+    }
+
+    public void LevelFailed()
+    {
+        levelManager.StopEnemies();
     }
 }

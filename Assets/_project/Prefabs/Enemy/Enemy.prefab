@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9956b153f3e7339459c60966cd347da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  damage: 1
   startHealth: 10
   enemyState: 0
   enemySightRange: 25
@@ -497,6 +497,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1123760941967892007}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3170052297267817369, guid: ef26b2dc882f2d741b1e5521ca67f8ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7942293634531156289}
     - targetCorrespondingSourceObject: {fileID: 1813101373325273194, guid: ef26b2dc882f2d741b1e5521ca67f8ef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5442349959843943692}
@@ -559,6 +562,24 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2928634284890834069, guid: ef26b2dc882f2d741b1e5521ca67f8ef, type: 3}
   m_PrefabInstance: {fileID: 362427191067281489}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3384965675189347272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3170052297267817369, guid: ef26b2dc882f2d741b1e5521ca67f8ef, type: 3}
+  m_PrefabInstance: {fileID: 362427191067281489}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7942293634531156289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384965675189347272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309d4e014fd385841a7eee7b32726e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 796319293505183484}
 --- !u!137 &3602435912579683662 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 3817352622188141855, guid: ef26b2dc882f2d741b1e5521ca67f8ef, type: 3}
