@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
@@ -29,10 +30,17 @@ public class PlayerAnimator : MonoBehaviour
             _playerAnimationState = PlayerAnimationState.Run;
         }
     }
+
+    public void PlayFallBackAnimation()
+    {
+        _playerAnimationState = PlayerAnimationState.Dead;
+        _animator.SetTrigger("FallBack");
+    }
 }
 
 public enum PlayerAnimationState
 {
     Idle,
     Run,
+    Dead,
 }

@@ -17,13 +17,13 @@ public class PlayerHealthUI : MonoBehaviour
     {
         gameObject.SetActive(true);
         _canvasGroup.DOKill();
-        _canvasGroup.DOFade(1, .2f);
+        _canvasGroup.DOFade(1, .2f).SetUpdate(true);
     }
 
     public void Hide()
     {
         _canvasGroup.DOKill();
-        _canvasGroup.DOFade(0, .2f).OnComplete(()=>gameObject.SetActive(false));
+        _canvasGroup.DOFade(0, .2f).OnComplete(()=>gameObject.SetActive(false)).SetUpdate(true);
     }
 
     public void UpdateHealth(float ratio)

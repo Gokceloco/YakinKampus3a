@@ -11,6 +11,11 @@ public class GameDirector : MonoBehaviour
     public Player player;
 
     public PlayerHealthUI playerHealthUI;
+    public MainMenu mainMenu;
+    public VictoryUI victoryUI;
+    public MiniMapUI miniMapUI;
+
+    public GameState gameState;
 
     private void Awake()
     {
@@ -19,7 +24,7 @@ public class GameDirector : MonoBehaviour
 
     private void Start()
     {
-        RestartLevel();
+        player.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -36,8 +41,21 @@ public class GameDirector : MonoBehaviour
         {
             LoadPreviousLevel();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EscapeButtonPressed();
+        }
     }
-    private void LoadNextLevel()
+
+    private void EscapeButtonPressed()
+    {
+        gameState = GameState.MainMenu;
+        Time.timeScale = 0;
+        mainMenu.Show(true);
+        HideInGameUI();
+    }
+
+    public void LoadNextLevel()
     {
         levelManager.levelNo += 1;
         RestartLevel();
@@ -50,17 +68,47 @@ public class GameDirector : MonoBehaviour
 
     void RestartLevel()
     {
+        gameState = GameState.GamePlay;
         levelManager.RestartLevel();
         player.RestartPlayer();
+        ShowInGameUI();
     }
 
     public void LevelCompleted()
     {
-        Invoke(nameof(LoadNextLevel), 1f);
+        victoryUI.Show(1);
+        HideInGameUI();
     }
 
     public void LevelFailed()
     {
+        gameState = GameState.FailUI;
         levelManager.StopEnemies();
+        HideInGameUI();
     }
+
+    public void StartButtonPressed()
+    {
+        RestartLevel();
+    }
+
+    public void ShowInGameUI()
+    {
+        playerHealthUI.Show();
+        miniMapUI.Show();
+    }
+
+    public void HideInGameUI()
+    {
+        playerHealthUI.Hide();
+        miniMapUI.Hide();
+    }
+}
+
+public enum GameState
+{
+    MainMenu,
+    GamePlay,
+    VictoryUI,
+    FailUI,
 }

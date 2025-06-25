@@ -39,6 +39,8 @@ public class Enemy : MonoBehaviour
 
     private bool _isPlayerDead;
 
+    public GameObject minimapIcon;
+
     private void Start()
     {
         _transform = transform;
@@ -134,6 +136,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        minimapIcon.SetActive(false);
         if (Random.value < .5f)
         {
             _animator.SetTrigger("FallBack1");
@@ -161,7 +164,7 @@ public class Enemy : MonoBehaviour
     {
         if (PlayerInRange())
         {
-            _player.GetHit(damage);
+            _player.GetHit(damage, (_player.transform.position - transform.position).normalized);
         }
     }
 

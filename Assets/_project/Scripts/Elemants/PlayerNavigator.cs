@@ -18,15 +18,21 @@ public class PlayerNavigator : MonoBehaviour
     private Rigidbody _rb;
     private bool _isGrounded;
     private PlayerAnimator _playerAnimator;
+    private Player _player;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _playerAnimator = GetComponent<PlayerAnimator>();
+        _player = GetComponent<Player>();
     }
 
     void Update()
     {
+        if (_player.GetIfDead())
+        {
+            return;
+        }
         MovePlayer();
         if (playerLooksAtMouse)
         {
