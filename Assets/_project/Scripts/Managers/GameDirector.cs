@@ -14,6 +14,7 @@ public class GameDirector : MonoBehaviour
     public MainMenu mainMenu;
     public VictoryUI victoryUI;
     public MiniMapUI miniMapUI;
+    public VideoPlayerUI videoPlayerUI;
 
     public GameState gameState;
 
@@ -47,6 +48,11 @@ public class GameDirector : MonoBehaviour
         }
     }
 
+    private void PlayVideo(int i)
+    {
+        videoPlayerUI.PlayVideoClip(i);
+    }
+
     private void EscapeButtonPressed()
     {
         gameState = GameState.MainMenu;
@@ -67,6 +73,25 @@ public class GameDirector : MonoBehaviour
     }    
 
     void RestartLevel()
+    {
+        if (levelManager.levelNo == 1)
+        {
+            PlayVideo(0);
+            Invoke(nameof(StartLevel), 5);
+        }
+        else if (levelManager.levelNo == 2)
+        {
+            PlayVideo(1);
+            Invoke(nameof(StartLevel), 5);
+        }
+        else
+        {
+            videoPlayerUI.Hide();
+            StartLevel();
+        }
+    }
+
+    void StartLevel()
     {
         gameState = GameState.GamePlay;
         levelManager.RestartLevel();

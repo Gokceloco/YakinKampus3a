@@ -18,10 +18,43 @@ public class Player : MonoBehaviour
 
     public Light flashLight;
 
+    private Door _touchingDoor;
+
+    public float touchDistance;
+    public LayerMask doorLayerMask;
+
+    public bool haveKey;
+
     private void Awake()
     {
         _playerNavigator = GetComponent<PlayerNavigator>();
         _playerAnimator = GetComponent<PlayerAnimator>();
+    }
+    private void Update()
+    {
+        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out var hit, touchDistance, doorLayerMask))
+        {
+            _touchingDoor = hit.transform.GetComponentInParent<Door>();
+        }
+        else
+        {
+            _touchingDoor = null;
+        }
+        if (Input.GetKeyDown(KeyCode.E)) 
+        {
+            if (_touchingDoor != null)
+            {
+                _touchingDoor.DoorInteracted(haveKey);
+            }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Key"))
+        {
+            other.gameObject.SetActive(false);
+            haveKey = true;
+        }
     }
     internal void RestartPlayer()
     {
